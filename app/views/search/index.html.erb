@@ -1,0 +1,40 @@
+<% if flash[:alert] %>
+  <div class="row">
+    <div class="alert alert-danger mt-5" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  </div>
+<% end %>
+<form class="row" action="/" method="get">
+  <div class="col-4 offset-4 mt-5 mb-5">
+    <div class="input-group">
+      <input class="form-control" placeholder="Search" type="text" required name="q" value="<%= params[:q] %>">
+      <input class="btn btn-primary" type="submit" value="Search">
+    </div>
+  </div>
+</form>
+<div class="row">
+  <% @objects[:results]&.each do |object| %>
+    <div class="card col-8 offset-2">
+      <div class="card-body">
+        <h5 class="card-title"><%= object['name'] %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= object['full_name'] %></h6>
+        <p class="card-text"><%= object['description'] %></p>
+        <%= link_to 'Go to repository', object['html_url'], { class: 'card-link' } %>
+      </div>
+    </div>
+  <% end %>
+  <% if @objects.any? && @objects[:results].blank? %>
+    <div class="text-center">
+      <h2>Unfortunately, there are no results</h2>
+    </div>
+  <% end %>
+</div>
+<% if @objects.any? %>
+  <div class="row">
+    <div class="col-4 offset-4 text-center mt-5 mb-5">
+      <%= link_to_prev_page @objects, '<<Prev', params[:q] %>
+      <%= link_to_next_page @objects, 'Next>>', params[:q] %>
+    </div>
+  </div>
+<% end %>
