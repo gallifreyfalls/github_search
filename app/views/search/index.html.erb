@@ -20,7 +20,7 @@
         <h5 class="card-title"><%= object['name'] %></h5>
         <h6 class="card-subtitle mb-2 text-muted"><%= object['full_name'] %></h6>
         <p class="card-text"><%= object['description'] %></p>
-        <%= link_to 'Go to repository', object['html_url'], { class: 'card-link' } %>
+        <%= link_to 'Go to repository', object['html_url'], { target: '_blank', class: 'card-link' } %>
       </div>
     </div>
   <% end %>
